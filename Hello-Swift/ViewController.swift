@@ -8,18 +8,30 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, OnDataApplied {
+    
+    @IBOutlet var dataLabel: UILabel! = UILabel()
+    
+    func onApplied(data: NSString) {
+        dataLabel.text = data;
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        dataLabel.text = "test"
     }
-
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "secondSegue" {
+            let secondVC:SecondViewController = segue.destinationViewController as SecondViewController
+            secondVC.delegate = self
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
 }
 
